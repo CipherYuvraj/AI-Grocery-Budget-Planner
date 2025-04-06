@@ -20,7 +20,7 @@ const Dashboard = () => {
         <div className="text-center mb-16 pt-8">
           <div className="flex justify-center mb-4">
             <div className="relative">
-              <h1 className="text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-600">
+              <h1 className="text-5xl font-extrabold p-2 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-600">
                 Budget Bytes
               </h1>
               <div className="absolute -bottom-3 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full"></div>

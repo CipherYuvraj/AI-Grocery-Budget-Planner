@@ -52,67 +52,79 @@ const LeftoverOptimization = () => {
     }
   };
 
-  return (
-    <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Leftover Recipe Generator</h1>
-      
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              What's in your fridge?
-            </label>
+return (
+    <div className="bg-gradient-to-br from-gray-800 via-gray-900 to-black min-h-screen p-6 text-white">
+        <div className="max-w-3xl mx-auto">
+            {/* Simple modern header */}
+            <div className="mb-6">
+                <h1 className="text-2xl font-semibold text-white">
+                    Leftover Recipe Generator
+                </h1>
+                <p className="text-gray-400 text-sm mt-1">Transform your leftovers into delicious meals</p>
+            </div>
             
-            {leftovers.map((item, index) => (
-              <div key={index} className="flex mb-2">
-                <input
-                  type="text"
-                  value={item}
-                  onChange={(e) => handleChangeItem(index, e.target.value)}
-                  className="flex-grow p-2 border border-gray-300 rounded-l-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                  placeholder="Enter a leftover ingredient"
+            {/* Clean form card */}
+            <div className="bg-gray-800 rounded-lg shadow-sm border border-slate-200 mb-8">
+                <div className="p-6">
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-6">
+                            <label className="block text-sm font-medium text-yellow-300 mb-3">
+                                What's in your fridge?
+                            </label>
+                            
+                            {leftovers.map((item, index) => (
+                                <div key={index} className="flex mb-3">
+                                    <input
+                                        type="text"
+                                        value={item}
+                                        onChange={(e) => handleChangeItem(index, e.target.value)}
+                                        className="flex-grow p-3 border border-gray-600 rounded-l-md bg-gray-700 text-gray-300 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                        placeholder="Enter a leftover ingredient"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => handleRemoveItem(index)}
+                                        className="bg-gray-700 text-gray-400 p-3 rounded-r-md hover:bg-gray-600 focus:outline-none"
+                                        aria-label="Remove ingredient"
+                                    >
+                                        ✕
+                                    </button>
+                                </div>
+                            ))}
+                            
+                            <button
+                                type="button"
+                                onClick={handleAddItem}
+                                className="mt-2 text-sm text-blue-400 hover:text-blue-500 focus:outline-none flex items-center"
+                            >
+                                <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
+                                </svg>
+                                Add another ingredient
+                            </button>
+                        </div>
+                        
+                        <button
+                            type="submit"
+                            className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 font-medium"
+                        >
+                            Get Recipe Ideas
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            {(isLoading || response || error) && (
+                <ResponseCard
+                    title="Your Recipe Ideas"
+                    response={response}
+                    isLoading={isLoading}
+                    error={error}
                 />
-                <button
-                  type="button"
-                  onClick={() => handleRemoveItem(index)}
-                  className="bg-red-500 text-white p-2 rounded-r-md hover:bg-red-600 focus:outline-none"
-                >
-                  ✕
-                </button>
-              </div>
-            ))}
-            
-            <button
-              type="button"
-              onClick={handleAddItem}
-              className="mt-2 text-sm text-green-600 hover:text-green-800 focus:outline-none flex items-center"
-            >
-              <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
-              </svg>
-              Add another ingredient
-            </button>
-          </div>
-          
-          <button
-            type="submit"
-            className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-          >
-            Get Recipe Ideas
-          </button>
-        </form>
-      </div>
-      
-      {(isLoading || response || error) && (
-        <ResponseCard
-          title="Leftover Recipe Ideas"
-          response={response}
-          isLoading={isLoading}
-          error={error}
-        />
-      )}
+            )}
+        </div>
     </div>
-  );
+);
 };
 
 export default LeftoverOptimization;

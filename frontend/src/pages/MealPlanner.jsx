@@ -11,6 +11,15 @@ const MealPlanner = () => {
   const [error, setError] = useState('');
   const [showSaveForm, setShowSaveForm] = useState(false);
   const [planTitle, setPlanTitle] = useState('');
+  
+  // Force light mode initially
+  // eslint-disable-next-line no-unused-vars
+  const [forceLightMode] = useState(true);
+  
+  // When component mounts, set light mode in localStorage
+  React.useEffect(() => {
+    localStorage.setItem('theme', 'light');
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,75 +74,77 @@ const MealPlanner = () => {
     }
   };
 
-  return (
-    <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Weekly Meal Planner</h1>
-      
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-2">
-              Weekly Budget (₹)
-            </label>
-            <input
-              type="number"
-              id="budget"
-              value={budget}
-              onChange={(e) => setBudget(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
-              placeholder="Enter your weekly food budget"
-            />
-          </div>
-          
-          <PreferenceSelector preferences={preferences} setPreferences={setPreferences} />
-          
-          <button
-            type="submit"
-            className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-          >
-            Generate Meal Plan
-          </button>
-        </form>
-      </div>
-      
-      {(isLoading || response || error) && (
-        <ResponseCard
-          title="Your Weekly Meal Plan"
-          response={response}
-          isLoading={isLoading}
-          error={error}
-        />
-      )}
-      
-      {showSaveForm && response && (
-        <div className="bg-white p-6 rounded-lg shadow-md mt-6">
-          <h3 className="text-xl font-semibold mb-4">Save This Meal Plan</h3>
-          <form onSubmit={handleSavePlan}>
-            <div className="mb-4">
-              <label htmlFor="planTitle" className="block text-sm font-medium text-gray-700 mb-2">
-                Plan Title
-              </label>
-              <input
-                type="text"
-                id="planTitle"
-                value={planTitle}
-                onChange={(e) => setPlanTitle(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                placeholder="Enter a title for your meal plan"
-              />
+return (
+    <div className="bg-gradient-to-br from-gray-800 via-gray-900 to-black min-h-screen p-6 text-gray-200">
+        <div className="max-w-4xl mx-auto">
+            <h1 className="text-3xl font-bold text-blue-400 mb-6 border-b-2 border-blue-500 pb-2">Weekly Meal Planner</h1>
+            
+            <div className="bg-gray-800 p-6 rounded-lg shadow-sm border border-slate-200 mb-8">
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                        <label htmlFor="budget" className="block text-sm font-bold text-yellow-300 mb-2">
+                            Weekly Budget (₹)
+                        </label>
+                        <input
+                            type="number"
+                            id="budget"
+                            value={budget}
+                            onChange={(e) => setBudget(e.target.value)}
+                            className="w-full p-3 border-2 border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-700 text-gray-200"
+                            placeholder="Enter your weekly food budget"
+                        />
+                    </div>
+                    
+                    <PreferenceSelector preferences={preferences} setPreferences={setPreferences} />
+                    
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 font-bold text-lg shadow-md transition-colors"
+                    >
+                        Generate Meal Plan
+                    </button>
+                </form>
             </div>
             
-            <button
-              type="submit"
-              className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-            >
-              Save Plan
-            </button>
-          </form>
+            {(isLoading || response || error) && (
+                <ResponseCard
+                    title="Your Weekly Meal Plan"
+                    response={response}
+                    isLoading={isLoading}
+                    error={error}
+                />
+            )}
+            
+            {showSaveForm && response && (
+                <div className="bg-gray-800 p-6 rounded-lg shadow-lg mt-6 border border-gray-700">
+                    <h3 className="text-xl font-bold text-blue-400 mb-4 border-b border-blue-500 pb-2">Save This Meal Plan</h3>
+                    <form onSubmit={handleSavePlan}>
+                        <div className="mb-4">
+                            <label htmlFor="planTitle" className="block text-sm font-bold text-gray-300 mb-2">
+                                Plan Title
+                            </label>
+                            <input
+                                type="text"
+                                id="planTitle"
+                                value={planTitle}
+                                onChange={(e) => setPlanTitle(e.target.value)}
+                                className="w-full p-3 border-2 border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-700 text-gray-200"
+                                placeholder="Enter a title for your meal plan"
+                            />
+                        </div>
+                        
+                        <button
+                            type="submit"
+                            className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 font-bold shadow-md transition-colors"
+                        >
+                            Save Plan
+                        </button>
+                    </form>
+                </div>
+            )}
         </div>
-      )}
     </div>
-  );
+);
 };
 
 export default MealPlanner;

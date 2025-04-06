@@ -1,6 +1,8 @@
 import React from 'react';
 
-const PreferenceSelector = ({ preferences, setPreferences }) => {
+const PreferenceSelector = () => {
+  const [preferences, setPreferences] = React.useState([]);
+  
   const options = [
     'Vegetarian', 'Vegan', 'Gluten-free', 'Low-carb', 
     'Keto', 'Dairy-free', 'Indian', 'Chinese', 
@@ -16,20 +18,20 @@ const PreferenceSelector = ({ preferences, setPreferences }) => {
   };
 
   return (
-    <div className="mb-4">
-      <label className="block text-sm font-medium text-gray-700 mb-2">
+    <div className="mb-6 p-4 border-2 border-black rounded-lg bg-white">
+      <label className="block text-lg font-bold text-black mb-3">
         Dietary Preferences & Cuisines
       </label>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-3">
         {options.map(option => (
           <button
             key={option}
             type="button"
             onClick={() => togglePreference(option)}
-            className={`px-3 py-1 rounded-full text-sm ${
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
               preferences.includes(option)
-                ? 'bg-green-500 text-white'
-                : 'bg-gray-200 text-gray-800'
+                ? 'bg-black text-white shadow-md'
+                : 'bg-gray-100 text-black border border-gray-300 hover:bg-gray-200'
             }`}
           >
             {option}

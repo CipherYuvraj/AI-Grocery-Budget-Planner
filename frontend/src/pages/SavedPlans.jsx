@@ -66,7 +66,7 @@ const SavedPlans = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Saved Plans</h1>
+      <h1 className="text-3xl font-bold text-blue-400 mb-6">Saved Plans</h1>
       
       {plans.length === 0 ? (
         <div className="bg-white p-6 rounded-lg shadow-md text-center">
