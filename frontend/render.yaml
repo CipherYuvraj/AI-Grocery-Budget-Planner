@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: ai-grocery-frontend
+    env: static
+    buildCommand: npm run build
+    startCommand: npm run start
+    staticPublishPath: dist
+    envVars:
+      - key: NODE_VERSION
+        value: 20
