@@ -79,7 +79,7 @@ const ResponseCard = ({ title, response, isLoading, error }) => {
             <div className="flex justify-center items-center h-48">
               <div className="relative">
                 <div className="h-16 w-16 rounded-full border-t-4 border-b-4 border-cyan-400 animate-spin"></div>
-                <div className="absolute top-0 left-0 h-16 w-16 rounded-full border-t-4 border-b-4 border-purple-500 animate-spin animate-pulse opacity-70"></div>
+                <div className="absolute top-0 left-0 h-16 w-16 rounded-full border-t-4 border-b-4 border-purple-500 animate-spin opacity-70"></div>
               </div>
             </div>
           ) : error ? (
