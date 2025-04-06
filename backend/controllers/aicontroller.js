@@ -1,68 +1,89 @@
-// controllers/aiController.js
-const axios = require('axios');
-
-const grocerySuggestions = async (req, res) => {
-  const { budget, preferences } = req.body;
-
-  const prompt = `Suggest a grocery list for ₹${budget} for a ${preferences.join(", ")} diet.`;
-
-  try {
-    const response = await axios.post(
-        'https://api.groq.com/openai/v1/chat/completions',
-        {
-          model: 'llama3-70b-8192',
-          messages: [
-            {
-              role: 'user',
-              content: `Suggest a grocery list for ₹${budget} for a ${preferences.join(', ')} diet.`,
-            },
-          ],
-          temperature: 0.7,
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      
-
-    const aiResponse = response.data.choices[0].message.content;
-    res.json({ result: aiResponse });
-  } catch (error) {
-    console.error('❌ Groq API Error:', error.response?.data || error.message);
-    res.status(500).json({ error: 'Failed to get grocery suggestions.' });
-  }};
+const {
+    getGrocerySuggestionsFromGroq,
+    getReplacementSuggestionsFromGroq,
+    getMealPlanFromGroq,
+    getLeftoverMealsFromGroq,
+    getPlanFeedbackFromGroq,
+  } = require('../services/groq');
+  const { saveNewPlan, getAllPlans } = require('../utils/planStorage');
   
-
-
-
-  const replacementSuggestions = (req, res) => {
+  const grocerySuggestions = async (req, res) => {
+    const { budget, preferences } = req.body;
+  
+    try {
+      const aiResponse = await getGrocerySuggestionsFromGroq(budget, preferences);
+      res.json({ result: aiResponse });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+  
+  const replacementSuggestions = async (req, res) => {
     const { itemName } = req.body;
   
     if (!itemName) {
       return res.status(400).json({ error: 'Item name is required.' });
     }
   
-    res.json({ message: `🔄 Suggesting cheaper alternatives for ${itemName}` });
+    try {
+      const aiResponse = await getReplacementSuggestionsFromGroq(itemName);
+      res.json({ result: aiResponse });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   };
   
-  const mealPlanner = (req, res) => {
+  const mealPlanner = async (req, res) => {
     const { budget, preferences } = req.body;
-    res.json({
-      message: '🍽 Generating weekly meal plan...',
-      budget,
-      preferences,
-    });
+  
+    if (!budget || !preferences) {
+      return res.status(400).json({ error: 'Budget and preferences are required.' });
+    }
+  
+    try {
+      const aiResponse = await getMealPlanFromGroq(budget, preferences);
+      res.json({ result: aiResponse });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   };
   
-  const leftoverOptimization = (req, res) => {
+  const leftoverOptimization = async (req, res) => {
     const { leftovers } = req.body;
-    res.json({
-      message: '♻️ Creating meals using leftovers...',
-      leftovers,
-    });
+  
+    if (!leftovers || !Array.isArray(leftovers)) {
+      return res.status(400).json({ error: 'Leftovers must be an array.' });
+    }
+  
+    try {
+      const aiResponse = await getLeftoverMealsFromGroq(leftovers);
+      res.json({ result: aiResponse });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+  
+  const saveGroceryPlan = async (req, res) => {
+    const { title, items } = req.body;
+  
+    if (!title || !items || !Array.isArray(items)) {
+      return res.status(400).json({ error: 'Invalid request data' });
+    }
+  
+    try {
+      saveNewPlan({ title, items });
+  
+      // Optional AI feedback after saving the plan
+      const aiFeedback = await getPlanFeedbackFromGroq({ title, items });
+  
+      res.json({
+        message: '✅ Grocery plan saved successfully!',
+        feedback: aiFeedback,
+      });
+    } catch (error) {
+      console.error('❌ Error saving plan:', error);
+      res.status(500).json({ error: 'Failed to save grocery plan.' });
+    }
   };
   
   module.exports = {
@@ -70,5 +91,6 @@ const grocerySuggestions = async (req, res) => {
     replacementSuggestions,
     mealPlanner,
     leftoverOptimization,
+    saveGroceryPlan,
   };
   
