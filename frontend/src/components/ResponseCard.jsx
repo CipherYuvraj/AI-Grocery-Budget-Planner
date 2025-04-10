@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 const ResponseCard = ({ title, response, isLoading, error }) => {
-  // Theme state
+
   const [isDarkMode, setIsDarkMode] = useState(true);
-  
-  // Initialize theme from localStorage if available
+
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -12,14 +11,12 @@ const ResponseCard = ({ title, response, isLoading, error }) => {
     }
   }, []);
   
-  // Toggle theme function
   const toggleTheme = () => {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
     localStorage.setItem('theme', newMode ? 'dark' : 'light');
   };
   
-  // Dynamic theme classes
   const themeClasses = {
     card: isDarkMode 
       ? "bg-gray-900 border-gray-800 text-gray-200" 

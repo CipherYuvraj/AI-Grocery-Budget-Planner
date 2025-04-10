@@ -4,12 +4,7 @@ const SavedPlans = () => {
   const [plans, setPlans] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error] = useState('');
-
-  // For a real application, you would fetch the saved plans from the backend
-  // This is a mock implementation since your backend code doesn't expose an endpoint to get all plans
   useEffect(() => {
-    // This would normally be an axios call to your backend
-    // Since we don't have that endpoint in your backend, we're mocking it
     setTimeout(() => {
       // Mock data
       const mockPlans = [
@@ -34,7 +29,7 @@ const SavedPlans = () => {
             "Dinner: Roti and mixed vegetables",
             "Snacks: Homemade popcorn, seasonal fruits"
           ],
-          createdAt: new Date(Date.now() - 86400000).toISOString() // yesterday
+          createdAt: new Date(Date.now() - 86400000).toISOString()
         }
       ];
       

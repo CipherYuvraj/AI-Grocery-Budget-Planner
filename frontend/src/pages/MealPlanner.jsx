@@ -57,8 +57,8 @@ const MealPlanner = () => {
     }
     
     try {
-      // Extract items from the response text - this is a simplified approach
-      // In a real app, you might want to parse the response more carefully
+
+
       const items = response.split('\n').filter(line => line.trim());
       
       await axios.post('http://localhost:5000/api/save-plan', {

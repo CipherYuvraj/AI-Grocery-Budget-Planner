@@ -8,7 +8,7 @@ const ReplacementSuggestions = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   
-  // Force light mode initially
+
   useEffect(() => {
     localStorage.setItem('theme', 'light');
   }, []);

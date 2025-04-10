@@ -12,9 +12,9 @@ import ThemeToggle from './components/ThemeToggle';
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
-    // Check if there's a saved theme preference
+ 
     const savedTheme = localStorage.getItem('darkMode');
-    return savedTheme ? JSON.parse(savedTheme) : true; // default to true
+    return savedTheme ? JSON.parse(savedTheme) : true; 
   });
 
   useEffect(() => {

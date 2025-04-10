@@ -27,7 +27,6 @@ const LeftoverOptimization = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Filter out empty items
     const filteredLeftovers = leftovers.filter(item => item.trim());
     
     if (filteredLeftovers.length === 0) {
