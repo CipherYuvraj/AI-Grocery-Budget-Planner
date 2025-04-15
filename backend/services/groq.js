@@ -34,6 +34,7 @@ const getGrocerySuggestionsFromGroq = async (budget, preferences) => {
   
 IMPORTANT FORMATTING INSTRUCTIONS:
 
+
 1. Start with a brief one-sentence introduction about this grocery list
 2. Present the list in a clean, organized format with categories
 3. Use emoji icons for each category
@@ -44,7 +45,9 @@ IMPORTANT FORMATTING INSTRUCTIONS:
 8. End with a one-sentence closing tip related to the shopping list
 9. DO NOT use stars or asterisks (*) in your response please dont decorate the headings 
 10. DO NOT include any markdown formatting indicators  at the start or end
-11. Do NOT Double Star the Headings `;
+11. Do NOT Double Star the Headings 
+Note : if a user is prompting anything else except food item give him a messege like "it is not a food item"`;
+
 
   
   return sendPromptToGroq(prompt);
@@ -64,7 +67,8 @@ IMPORTANT FORMATTING INSTRUCTIONS:
 7. End with a brief one-sentence conclusion about making smart substitutions
 8. DO NOT use stars or asterisks (*) in your response please dont decorate the headings 
 9. DO NOT include any markdown formatting indicators at the start or end
-11. Do NOT Double Star the Headings`;
+11. Do NOT Double Star the Headings
+Note : if a user is prompting anything else except food item give him a messege like "it is not a food item`;
   
   return sendPromptToGroq(prompt);
 };
@@ -83,7 +87,8 @@ IMPORTANT FORMATTING INSTRUCTIONS:
 7. End with a brief one-sentence tip about meal planning or preparation
 8. DO NOT use stars or asterisks (*) in your response please dont decorate the headings 
 9. DO NOT include any markdown formatting indicators at the start or end
-11. Do NOT Double Star the Headings`;
+11. Do NOT Double Star the Headings
+Note : if a user is prompting anything else except food item give him a messege like "it is not a food item`;
   
   return sendPromptToGroq(prompt);
 };
@@ -103,7 +108,8 @@ IMPORTANT FORMATTING INSTRUCTIONS:
 7. Keep all suggestions simple and quick to prepare
 8. DO NOT use stars or asterisks (*) in your response please dont decorate the headings 
 9. DO NOT include any markdown formatting indicators in the start or end
-11. Do NOT Double Star the Headings `;
+11. Do NOT Double Star the Headings 
+Note : if a user is prompting anything else except food item give him a messege like "it is not a food item`;
   
   return sendPromptToGroq(prompt);
 };
@@ -124,7 +130,8 @@ IMPORTANT FORMATTING INSTRUCTIONS:
 7. Keep the total response concise and focused
 8. DO NOT use stars or asterisks (*) in your response please dont decorate the headings 
 9. DO NOT include any markdown formatting indicators at the start or end
-11. Do NOT Double Star the Headings`;
+11. Do NOT Double Star the Headings 
+Note : if a user is prompting anything else except food item give him a messege like "it is not a food item`;
   
   return sendPromptToGroq(prompt);
 };

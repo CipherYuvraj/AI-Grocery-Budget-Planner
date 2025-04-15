@@ -15,7 +15,7 @@ const FeatureCard = ({ title, description, icon, to, gradient }) => {
 
 const Dashboard = () => {
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
+    <div className="min-h-screen bg-gray-900 text-white p-6 relative">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16 pt-8">
           <div className="flex justify-center mb-4">
@@ -73,6 +73,9 @@ const Dashboard = () => {
             <p className="text-gray-100 opacity-90">More exciting features on the way!</p>
           </div>
         </div>
+      </div>
+      <div className="absolute bottom-4 right-6 text-gray-400 text-sm">
+        Developed by Yuvraj Udaywal, Taha, Yuvraj Singh
       </div>
     </div>
   );
